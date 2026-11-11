@@ -10,6 +10,13 @@ class OrderService:
     def catalog(self):
         return self.store.load()["catalog"]
 
+    def reduce_stock(self, state, items):
+        for line in items:
+            for product in state["catalog"]:
+                if product["product_id"] == line["product_id"]:
+                    product["stock"] -= line["quantity"]
+
+
     def prepare_order(self, state, customer_type, items, fulfillment):
         if customer_type not in ("regular", "student"):
             raise ValueError("Customer type must be regular or student.")
@@ -94,10 +101,7 @@ class OrderService:
             "total_cents": details["subtotal"] - details["discount"] + details["delivery"],
         }
 
-        for line in order["items"]:
-            for product in state["catalog"]:
-                if product["product_id"] == line["product_id"]:
-                    product["stock"] -= line["quantity"]
+        self.reduce_stock(state, order["items"])
 
 
         state["next_order_number"] += 1

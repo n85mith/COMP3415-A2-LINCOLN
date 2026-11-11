@@ -61,7 +61,7 @@ def run_menu(service):
                     print("Quote only: no stock reserved and no order created.")
                 else:
                     show_order(service.quote(*request))
-                    if input("Place this order? [y/N]: ").strip().lower() == "y":
+                    if input("Place this order? [Y/N]: ").strip().lower() == "y":
                         show_order(service.place_order(*request))
                     else:
                         print("Order not placed.")
@@ -75,7 +75,7 @@ def run_menu(service):
                 show_order(service.get_order(input("Order ID: ").strip()))
             elif choice == "6":
                 order_id = input("Order ID to cancel: ").strip()
-                if input("Cancel this order? [y/N]: ").strip().lower() == "y":
+                if input("Cancel this order? [Y/N]: ").strip().lower() == "y":
                     show_order(service.cancel_order(order_id))
                 else:
                     print("Cancellation abandoned.")
