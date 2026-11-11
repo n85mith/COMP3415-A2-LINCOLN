@@ -214,3 +214,23 @@ These commands use the same orders and stock as the interactive menu opened with
 python -m supplydesk --help
 python -m supplydesk quote --help
 ```
+## Express delivery
+
+Fulfillment options are `pickup`, `delivery` (standard delivery), and
+`express`. Pickup remains the default.
+
+Express delivery always costs 1,200 cents ($12.00 CAD). This fee is
+never waived, even when standard delivery would be free.
+
+Student discount eligibility and rounding are unchanged. The discount
+applies to merchandise only, not delivery fees.
+
+Example:
+
+```bash
+python3 -m supplydesk quote --customer student --fulfillment express --item hoodie:2
+```
+
+For two hoodies, the merchandise subtotal is 8,000 cents, the student
+discount is 800 cents, and express delivery is 1,200 cents.
+The expected total is 8,400 cents ($84.00 CAD).

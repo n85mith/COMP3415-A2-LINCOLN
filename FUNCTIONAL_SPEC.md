@@ -57,7 +57,7 @@ place_order(customer_type, items, fulfillment="pickup")
 Both operations require:
 
 - Customer type: exactly `regular` or `student`.
-- Fulfillment: exactly `pickup` or `delivery`.
+- Fulfillment: exactly `pickup`, `delivery` or `express`  .
 - Items: a nonempty list of dictionaries, each containing `product_id` and `quantity`.
 - A valid product ID for every item.
 - An integer quantity from 1 through 99 inclusive for each item. Booleans, fractional numbers, and numeric strings are not valid quantities when calling the service directly.
@@ -86,7 +86,7 @@ All service calculations and stored monetary values use integer Canadian cents.
 2. A student receives a 10% discount when the subtotal is at least 5,000 cents ($50.00). Regular customers receive no discount.
 3. Round the discount to the nearest whole cent, with half a cent rounded upward. Do not use binary floating-point values for money calculations.
 4. Pickup is free.
-5. Delivery costs 600 cents ($6.00). Delivery is free when the subtotal minus the discount is at least 10,000 cents ($100.00).
+5. Delivery costs 600 cents ($6.00) or express ($12.00). Delivery is free when the subtotal minus the discount is at least 10,000 cents ($100.00). this rule does not apply to express dilivery
 6. Total = subtotal minus discount plus delivery charge. No taxes or other charges apply.
 
 Examples—all amounts below are in cents:
@@ -103,7 +103,7 @@ A quote returns:
 
 - Customer type and fulfillment option.
 - Item lines containing the product ID, name, unit price, quantity, and line subtotal.
-- Order subtotal, discount, delivery charge, and total.
+- Order subtotal, discount, delivery charge, express charge and total.
 
 A quote must not create or modify a save file, reserve stock, create an order, or use an order ID.
 
